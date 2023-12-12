@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "5036c18b-4567-4241-aab7-4d75b9cc234b",
+		"name": "Kyla",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10808559"
+	},
+	"item": [
+		{
+			"name": "GET appointments/reasons/with-urgency",
+			"item": [
+				{
+					"name": "List of reasons returned",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check response success\", function () {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\"Data array should be present and not empty\", function () {",
+									"    pm.expect(jsonData.data.length).to.be.above(0);",
+									"});",
+									"pm.test(\"Check response data\", function () {",
+									"    pm.expect(jsonData.data).to.be.an(\"array\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-clinic",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile",
+								"public",
+								"api",
+								"v1",
+								"appointments",
+								"reasons",
+								"with-urgency"
+							],
+							"query": [
+								{
+									"key": "consultationType",
+									"value": "in-clinic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of reasons is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check response success\", function () {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\"Data array should be empty\", function () {",
+									"    pm.expect(jsonData.data.length).to.eql(0);",
+									"});",
+									"pm.test(\"Check response data\", function () {",
+									"    pm.expect(jsonData.data).to.be.an(\"array\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-home",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile",
+								"public",
+								"api",
+								"v1",
+								"appointments",
+								"reasons",
+								"with-urgency"
+							],
+							"query": [
+								{
+									"key": "consultationType",
+									"value": "in-home"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET /schedule",
+			"item": [
+				{
+					"name": "Current date",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const date = new Date()",
+									"var year = date.getFullYear()",
+									"var month = date.getMonth()+1",
+									"var day = date.getDate()",
+									"console.log(year + \"-\" + month + \"-\" + day)",
+									"pm.environment.set(\"current_date\", year + \"-\" + month + \"-\" + day);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var responseDate = pm.environment.get(\"current_date\");",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response body - error\", function () {",
+									"    pm.expect(jsonData.error).to.eql(null);",
+									"});",
+									"pm.test(\"Response body - success\", function () {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\"Response body - currentDate\", function () {",
+									"    console.log(jsonData.data.currentDate[0].start)",
+									"   pm.expect(jsonData.data.currentDate[0].start).to.include(responseDate);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/drchrono/public/api/v1/schedule?clinicId=110544&date={{current_date}}&examRoom=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"drchrono",
+								"public",
+								"api",
+								"v1",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "clinicId",
+									"value": "110544"
+								},
+								{
+									"key": "date",
+									"value": "{{current_date}}"
+								},
+								{
+									"key": "examRoom",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dates in past",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const date = new Date()",
+									"var year = date.getFullYear()-25",
+									"var month = date.getMonth()+1",
+									"var day = date.getDate()",
+									"console.log(year + \"-\" + month + \"-\" + day)",
+									"pm.environment.set(\"current_date\", year + \"-\" + month + \"-\" + day);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var responseDate = pm.environment.get(\"current_date\");",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response body - error\", function () {",
+									"    pm.expect(jsonData.error).to.eql(null);",
+									"});",
+									"pm.test(\"Response body - success\", function () {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\"Response body - currentDate\", function () {",
+									"    console.log(jsonData.data.currentDate[0].start)",
+									"   pm.expect(jsonData.data.currentDate[0].start).to.include(responseDate);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/drchrono/public/api/v1/schedule?clinicId=110544&date={{current_date}}&examRoom=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"drchrono",
+								"public",
+								"api",
+								"v1",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "clinicId",
+									"value": "110544"
+								},
+								{
+									"key": "date",
+									"value": "{{current_date}}"
+								},
+								{
+									"key": "examRoom",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid clinickID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const date = new Date()",
+									"var year = date.getFullYear()-25",
+									"var month = date.getMonth()+1",
+									"var day = date.getDate()",
+									"console.log(year + \"-\" + month + \"-\" + day)",
+									"pm.environment.set(\"current_date\", year + \"-\" + month + \"-\" + day);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var responseDate = pm.environment.get(\"current_date\");",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"pm.test(\"Response body - error\", function () {",
+									"    pm.expect(jsonData.error.user_msg).to.eql(\"{\\\"detail\\\":\\\"Not found.\\\"}\");",
+									"    pm.expect(jsonData.error.error_code).to.eql(404);",
+									"});",
+									"pm.test(\"Response body - data is empty\", function () {",
+									"    pm.expect(jsonData.data).to.eql(null);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/drchrono/public/api/v1/schedule?clinicId=000&date={{current_date}}&examRoom=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"drchrono",
+								"public",
+								"api",
+								"v1",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "clinicId",
+									"value": "000"
+								},
+								{
+									"key": "date",
+									"value": "{{current_date}}"
+								},
+								{
+									"key": "examRoom",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST sentry_key",
+			"item": [
+				{
+					"name": "Corrupt deflate stream",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response body detail and Causes\", function () {",
+									"    pm.expect(jsonData.detail).to.eql(\"failed to read request body\");",
+									"    pm.expect(jsonData.causes[0]).to.eql(\"corrupt deflate stream\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://sentry.kyla.com/api/6/envelope/?appointment=eyJkYXRlVGltZSI6eyJzdGFydCI6IjIwMjMtMTItMTJUMTA6MzA6MDAiLCJlbmQiOiIyMDIzLTEyLTEyVDExOjAwOjAwIn0sInN5bXB0b21hdGljIjpmYWxzZSwiY2xpbmljIjp7InVybCI6Imh0dHBzOi8vYWN0aW9udXJnZW50Y2FyZS5jb20vY2xpbmljcy9ibG9zc29tLWhpbGwiLCJuYW1lIjoiU2FuIEpvc2UgLSBCbG9zc29tIEhpbGwgUmQuIiwiYWRkcmVzcyI6IjEzNzUgQmxvc3NvbSBIaWxsIFJkLiAjNDksIFNhbiBKb3NlLCBDQSA5NTExOCIsInBob25lTnVtYmVyIjoiKzE0MDg2NDU3MDczIiwicG9zaXRpb24iOnsibGF0IjozNy4yNDUzMjEyLCJsbmciOi0xMjEuODg5MDkxOX0sImlkIjoxMTA1NDQsImV4YW1Sb29tIjoxfSwicmVhc29uIjoiICAifQ%3D%3D&_rsc=d3irc&sentry_key=32ad739cb7544bb084008b6cde8e8ed0&sentry_version=7&sentry_client=sentry.javascript.react%2F7.21.1",
+							"protocol": "https",
+							"host": [
+								"sentry",
+								"kyla",
+								"com"
+							],
+							"path": [
+								"api",
+								"6",
+								"envelope",
+								""
+							],
+							"query": [
+								{
+									"key": "appointment",
+									"value": "eyJkYXRlVGltZSI6eyJzdGFydCI6IjIwMjMtMTItMTJUMTA6MzA6MDAiLCJlbmQiOiIyMDIzLTEyLTEyVDExOjAwOjAwIn0sInN5bXB0b21hdGljIjpmYWxzZSwiY2xpbmljIjp7InVybCI6Imh0dHBzOi8vYWN0aW9udXJnZW50Y2FyZS5jb20vY2xpbmljcy9ibG9zc29tLWhpbGwiLCJuYW1lIjoiU2FuIEpvc2UgLSBCbG9zc29tIEhpbGwgUmQuIiwiYWRkcmVzcyI6IjEzNzUgQmxvc3NvbSBIaWxsIFJkLiAjNDksIFNhbiBKb3NlLCBDQSA5NTExOCIsInBob25lTnVtYmVyIjoiKzE0MDg2NDU3MDczIiwicG9zaXRpb24iOnsibGF0IjozNy4yNDUzMjEyLCJsbmciOi0xMjEuODg5MDkxOX0sImlkIjoxMTA1NDQsImV4YW1Sb29tIjoxfSwicmVhc29uIjoiICAifQ%3D%3D"
+								},
+								{
+									"key": "_rsc",
+									"value": "d3irc"
+								},
+								{
+									"key": "sentry_key",
+									"value": "32ad739cb7544bb084008b6cde8e8ed0"
+								},
+								{
+									"key": "sentry_version",
+									"value": "7"
+								},
+								{
+									"key": "sentry_client",
+									"value": "sentry.javascript.react%2F7.21.1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET /ai",
+			"item": [
+				{
+					"name": "Positive check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"<!DOCTYPE html>\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kyla.com/ai",
+							"protocol": "https",
+							"host": [
+								"kyla",
+								"com"
+							],
+							"path": [
+								"ai"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

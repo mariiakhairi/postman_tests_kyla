@@ -1,0 +1,86 @@
+newman
+
+Kyla
+
+❏ GET appointments/reasons/with-urgency
+↳ User sees the list of reasons
+  GET https://prod.kyla.com/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-clinic [200 OK, 1.12kB, 755ms]
+  ✓  Status code is 200
+  ✓  Check response success
+  ✓  Data array should be present and not empty
+  ✓  Check response data
+
+↳ User doesn't see the list of reasons
+  GET https://prod.kyla.com/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-home [200 OK, 484B, 175ms]
+  ✓  Status code is 200
+  ✓  Check response success
+  ✓  Data array should be empty
+  ✓  Check response data
+
+❏ GET /schedule
+↳ current date
+  ┌
+  │ '2023-12-12'
+  └
+  GET https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=110544&date=2023-12-12&examRoom=1 [200 OK, 2.87kB, 263ms]
+  ✓  Status code is 200
+  ✓  Response body - error
+  ✓  Response body - success
+  ┌
+  │ '2023-12-12T09:00:00'
+  └
+  ✓  Response body - currentDate
+
+↳ Dates in past
+  ┌
+  │ '1998-12-12'
+  └
+  GET https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=110544&date=1998-12-12&examRoom=1 [200 OK, 535B, 288ms]
+  ✓  Status code is 200
+  ✓  Response body - error
+  ✓  Response body - success
+  ┌
+  │ '1998-12-12T12:00:00'
+  └
+  ✓  Response body - currentDate
+
+↳ invalid clinickID
+  ┌
+  │ '1998-12-12'
+  └
+  GET https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=000&date=1998-12-12&examRoom=1 [404 Not Found, 390B, 1782ms]
+  ✓  Status code is 404
+  ✓  Response body - error
+  ✓  Response body - data is empty
+
+❏ POST sentry_key
+↳ corrupt deflate stream
+  POST https://sentry.kyla.com/api/6/envelope/?appointment=eyJkYXRlVGltZSI6eyJzdGFydCI6IjIwMjMtMTItMTJUMTA6MzA6MDAiLCJlbmQiOiIyMDIzLTEyLTEyVDExOjAwOjAwIn0sInN5bXB0b21hdGljIjpmYWxzZSwiY2xpbmljIjp7InVybCI6Imh0dHBzOi8vYWN0aW9udXJnZW50Y2FyZS5jb20vY2xpbmljcy9ibG9zc29tLWhpbGwiLCJuYW1lIjoiU2FuIEpvc2UgLSBCbG9zc29tIEhpbGwgUmQuIiwiYWRkcmVzcyI6IjEzNzUgQmxvc3NvbSBIaWxsIFJkLiAjNDksIFNhbiBKb3NlLCBDQSA5NTExOCIsInBob25lTnVtYmVyIjoiKzE0MDg2NDU3MDczIiwicG9zaXRpb24iOnsibGF0IjozNy4yNDUzMjEyLCJsbmciOi0xMjEuODg5MDkxOX0sImlkIjoxMTA1NDQsImV4YW1Sb29tIjoxfSwicmVhc29uIjoiICAifQ%3D%3D&_rsc=d3irc&sentry_key=32ad739cb7544bb084008b6cde8e8ed0&sentry_version=7&sentry_client=sentry.javascript.react%2F7.21.1 [400 Bad Request, 328B, 696ms]
+  ✓  Status code is 400
+  ✓  Response body detail and Causes
+
+❏ GET /ai
+↳ New Request
+  GET https://kyla.com/ai [200 OK, 104.68kB, 850ms]
+  ✓  Status code is 200
+  ✓  Body matches string
+
+[90m┌─────────────────────────[39m[90m┬─────────────────────[39m[90m┬─────────────────────┐[39m
+[90m│[39m                         [90m│[39m            executed [90m│[39m              failed [90m│[39m
+[90m├─────────────────────────[39m[90m┼─────────────────────[39m[90m┼─────────────────────┤[39m
+[90m│[39m              iterations [90m│[39m                   1 [90m│[39m                   0 [90m│[39m
+[90m├─────────────────────────[39m[90m┼─────────────────────[39m[90m┼─────────────────────┤[39m
+[90m│[39m                requests [90m│[39m                   7 [90m│[39m                   0 [90m│[39m
+[90m├─────────────────────────[39m[90m┼─────────────────────[39m[90m┼─────────────────────┤[39m
+[90m│[39m            test-scripts [90m│[39m                   7 [90m│[39m                   0 [90m│[39m
+[90m├─────────────────────────[39m[90m┼─────────────────────[39m[90m┼─────────────────────┤[39m
+[90m│[39m      prerequest-scripts [90m│[39m                   3 [90m│[39m                   0 [90m│[39m
+[90m├─────────────────────────[39m[90m┼─────────────────────[39m[90m┼─────────────────────┤[39m
+[90m│[39m              assertions [90m│[39m                  23 [90m│[39m                   0 [90m│[39m
+[90m├─────────────────────────┴─────────────────────┴─────────────────────┤[39m
+[90m│[39m total run duration: 5s                                              [90m│[39m
+[90m├─────────────────────────────────────────────────────────────────────┤[39m
+[90m│[39m total data received: 108.04kB (approx)                              [90m│[39m
+[90m├─────────────────────────────────────────────────────────────────────┤[39m
+[90m│[39m average response time: 687ms [min: 175ms, max: 1782ms, s.d.: 511ms] [90m│[39m
+[90m└─────────────────────────────────────────────────────────────────────┘[39m

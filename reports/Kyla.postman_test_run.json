@@ -1,0 +1,335 @@
+{
+	"id": "9082a183-6679-4db1-8e6e-48bd5f8dbb60",
+	"name": "Kyla",
+	"timestamp": "2023-12-12T05:32:41.382Z",
+	"collection_id": "10808559-5036c18b-4567-4241-aab7-4d75b9cc234b",
+	"folder_id": 0,
+	"environment_id": "10808559-6ae5ba8e-c93d-452d-b90f-a690628256b1",
+	"totalPass": 23,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-12-12T05:32:36.143Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "030c0274-4c7f-4137-bfe2-6b64e8caad72",
+			"name": "List of reasons returned",
+			"url": "https://prod.kyla.com/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-clinic",
+			"time": 742,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Check response success": true,
+				"Data array should be present and not empty": true,
+				"Check response data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check response success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Data array should be present and not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check response data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				742
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check response success": true,
+					"Data array should be present and not empty": true,
+					"Check response data": true
+				}
+			]
+		},
+		{
+			"id": "6825a681-44b6-4481-834e-cca68967904d",
+			"name": "List of reasons is empty",
+			"url": "https://prod.kyla.com/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType=in-home",
+			"time": 187,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Check response success": true,
+				"Data array should be empty": true,
+				"Check response data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check response success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Data array should be empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check response data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				187
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check response success": true,
+					"Data array should be empty": true,
+					"Check response data": true
+				}
+			]
+		},
+		{
+			"id": "4a3a6b18-29cf-4359-b810-8cb54d8368d4",
+			"name": "Current date",
+			"url": "https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=110544&date=2023-12-12&examRoom=1",
+			"time": 280,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response body - error": true,
+				"Response body - success": true,
+				"Response body - currentDate": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - currentDate": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				280
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response body - error": true,
+					"Response body - success": true,
+					"Response body - currentDate": true
+				}
+			]
+		},
+		{
+			"id": "2d700eb8-4a5f-48c0-949b-37ed1f18a894",
+			"name": "Dates in past",
+			"url": "https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=110544&date=1998-12-12&examRoom=1",
+			"time": 754,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response body - error": true,
+				"Response body - success": true,
+				"Response body - currentDate": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - currentDate": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				754
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response body - error": true,
+					"Response body - success": true,
+					"Response body - currentDate": true
+				}
+			]
+		},
+		{
+			"id": "dd48709e-f3cf-49ac-b25e-e64982bdf703",
+			"name": "Invalid clinickID",
+			"url": "https://prod.kyla.com/drchrono/public/api/v1/schedule?clinicId=000&date=1998-12-12&examRoom=1",
+			"time": 1725,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Response body - error": true,
+				"Response body - data is empty": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body - data is empty": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1725
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Response body - error": true,
+					"Response body - data is empty": true
+				}
+			]
+		},
+		{
+			"id": "db5684de-d2af-4d29-a93d-14d3f17adbba",
+			"name": "Corrupt deflate stream",
+			"url": "https://sentry.kyla.com/api/6/envelope/?appointment=eyJkYXRlVGltZSI6eyJzdGFydCI6IjIwMjMtMTItMTJUMTA6MzA6MDAiLCJlbmQiOiIyMDIzLTEyLTEyVDExOjAwOjAwIn0sInN5bXB0b21hdGljIjpmYWxzZSwiY2xpbmljIjp7InVybCI6Imh0dHBzOi8vYWN0aW9udXJnZW50Y2FyZS5jb20vY2xpbmljcy9ibG9zc29tLWhpbGwiLCJuYW1lIjoiU2FuIEpvc2UgLSBCbG9zc29tIEhpbGwgUmQuIiwiYWRkcmVzcyI6IjEzNzUgQmxvc3NvbSBIaWxsIFJkLiAjNDksIFNhbiBKb3NlLCBDQSA5NTExOCIsInBob25lTnVtYmVyIjoiKzE0MDg2NDU3MDczIiwicG9zaXRpb24iOnsibGF0IjozNy4yNDUzMjEyLCJsbmciOi0xMjEuODg5MDkxOX0sImlkIjoxMTA1NDQsImV4YW1Sb29tIjoxfSwicmVhc29uIjoiICAifQ%3D%3D&_rsc=d3irc&sentry_key=32ad739cb7544bb084008b6cde8e8ed0&sentry_version=7&sentry_client=sentry.javascript.react%2F7.21.1",
+			"time": 672,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true,
+				"Response body detail and Causes": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body detail and Causes": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				672
+			],
+			"allTests": [
+				{
+					"Status code is 400": true,
+					"Response body detail and Causes": true
+				}
+			]
+		},
+		{
+			"id": "81a5c2bf-28b3-45ab-8840-eb5dbdd60d46",
+			"name": "Positive check",
+			"url": "https://kyla.com/ai",
+			"time": 179,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				179
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 4539,
+	"collection": {
+		"requests": [
+			{
+				"id": "030c0274-4c7f-4137-bfe2-6b64e8caad72",
+				"method": "GET"
+			},
+			{
+				"id": "6825a681-44b6-4481-834e-cca68967904d",
+				"method": "GET"
+			},
+			{
+				"id": "4a3a6b18-29cf-4359-b810-8cb54d8368d4",
+				"method": "GET"
+			},
+			{
+				"id": "2d700eb8-4a5f-48c0-949b-37ed1f18a894",
+				"method": "GET"
+			},
+			{
+				"id": "dd48709e-f3cf-49ac-b25e-e64982bdf703",
+				"method": "GET"
+			},
+			{
+				"id": "db5684de-d2af-4d29-a93d-14d3f17adbba",
+				"method": "POST"
+			},
+			{
+				"id": "81a5c2bf-28b3-45ab-8840-eb5dbdd60d46",
+				"method": "GET"
+			}
+		]
+	}
+}
